@@ -18,6 +18,13 @@
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
     <link href="assets/css/variables.css" rel="stylesheet">
     <link href="assets/css/main.css" rel="stylesheet">
+    <script type="text/javascript">
+      if (window.location.host.startsWith('www.')) {
+          var newHost = window.location.host.replace('www.', '');
+          var newUrl = window.location.protocol + '//' + newHost + window.location.pathname + window.location.search;
+          window.location.replace(newUrl);
+      }
+    </script>
   </head>
   <body>
     <header id="header" class="header fixed-top" data-scrollto-offset="0">
