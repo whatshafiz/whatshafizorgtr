@@ -69,9 +69,14 @@
         <div class="row g-5">
           <div class="col-lg-12">
             <article class="blog-details mt-5">
-              <div id="comments-holder" class="comments">
+              <div id="comments-holder-hafizol" class="comments">
 
-                <h4 class="comments-count">Whatshafız Hakkında Öğrencilerimizin Yorumları</h4>
+                <h4 class="comments-count">HafızOl Hakkında Öğrencilerimizin Yorumları</h4>
+
+              </div>
+              <div id="comments-holder-hafizkal" class="comments">
+
+                <h4 class="comments-count">HafızKal Hakkında Öğrencilerimizin Yorumları</h4>
 
               </div>
             </article>
@@ -182,11 +187,12 @@
     <script src="assets/js/main.js"></script>
     <script type="text/javascript">
       $(document).ready(function() {
-        fetchComments();
+        fetchComments('hafizol');
+        fetchComments('hafizkal');
       });
 
-      function fetchComments() {
-        var commentsUrl = baseUrl + 'comments/approved/hafizol';
+      function fetchComments(courseType) {
+        var commentsUrl = baseUrl + 'comments/approved/' + courseType;
 
         $('#load-more-button').hide();
 
@@ -198,7 +204,7 @@
           }
 
           response.data.forEach(function(comment) {
-            $('#comments-holder').append(`<div class="comment">
+            $('#comments-holder-' + courseType).append(`<div class="comment">
                 <div class="d-flex">
                   <div>
                     <h5><a href="">${comment.commented_by}</a></h5>
