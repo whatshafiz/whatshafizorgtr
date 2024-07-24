@@ -185,9 +185,9 @@
         fetchComments();
       });
 
-      var commentsUrl = baseUrl + 'comments/whatshafiz';
-
       function fetchComments() {
+        var commentsUrl = baseUrl + 'comments/approved/whatshafiz';
+
         $('#load-more-button').hide();
 
         $.get(commentsUrl, function(response) {
