@@ -74,7 +74,7 @@
               </div>
             </article>
 
-            <div id="load-more-button" class="text-center mt-auto">
+            <div id="load-more-button-hafizol" class="text-center mt-auto">
               <a href="javascript:void(0)" onclick="fetchComments('hafizol')" class="buy-btn mt-4">Daha Fazla Yorum</a>
             </div>
           </div>
@@ -85,7 +85,7 @@
               </div>
             </article>
 
-            <div id="load-more-button" class="text-center mt-auto">
+            <div id="load-more-button-hafizkal" class="text-center mt-auto">
               <a href="javascript:void(0)" onclick="fetchComments('hafizkal')" class="buy-btn mt-4">Daha Fazla Yorum</a>
             </div>
           </div>
@@ -198,13 +198,13 @@
       function fetchComments(courseType) {
         var commentsUrl = baseUrl + 'comments/approved/' + courseType;
 
-        $('#load-more-button').hide();
+        $('#load-more-button-' + courseType).hide();
 
         $.get(commentsUrl, function(response) {
           commentsUrl = response.next_page_url;
 
           if (commentsUrl !== null) {
-            $('#load-more-button').show();
+            $('#load-more-button-' + courseType).show();
           }
 
           response.data.forEach(function(comment) {
