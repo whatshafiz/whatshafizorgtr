@@ -56,7 +56,7 @@
               <a class="nav-link scrollto" href="index.html#ezber">Ezberleme Teknikleri</a>
             </li>
             <li>
-              <a class="buy-btn-green" href="https://panel.whatshafiz.com">Panele Giriş Yap</a>
+              <a class="buy-btn-green" href="https://panel.whatshafiz.org.tr">Panele Giriş Yap</a>
             </li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle d-none"></i>
@@ -195,19 +195,37 @@
         fetchComments('hafizkal');
       });
 
-      function fetchComments(courseType) {
-        var commentsUrl = baseUrl + 'comments/approved/' + courseType;
+      var hafizolCommentsUrl = baseUrl + 'comments/approved/hafizol';
+      var hafizkalCommentsUrl = baseUrl + 'comments/approved/hafizkal';
 
+      function fetchComments(courseType) {
         $('#load-more-button-' + courseType).hide();
+
+        if (courseType === 'hafizol') {
+          commentsUrl = hafizolCommentsUrl;
+        } else if (courseType === 'hafizkal') {
+          commentsUrl = hafizkalCommentsUrl;
+        }
 
         $.get(commentsUrl, function(response) {
           commentsUrl = response.next_page_url;
 
           if (commentsUrl !== null) {
             $('#load-more-button-' + courseType).show();
+
+            if (courseType === 'hafizol') {
+              hafizolCommentsUrl = commentsUrl;
+            } else if (courseType === 'hafizkal') {
+              hafizkalCommentsUrl = commentsUrl;
+            }
           }
 
-          response.data.forEach(function(comment) {
+          appendComments(courseType, response.data);
+        });
+      }
+
+      function appendComments(courseType, comments) {
+          comments.forEach(function(comment) {
             $('#comments-holder-' + courseType).append(`<div class="comment">
                 <div class="d-flex">
                   <div>
@@ -219,7 +237,6 @@
                 </div>
               </div>`);
           });
-        });
       }
     </script>
   </body>
