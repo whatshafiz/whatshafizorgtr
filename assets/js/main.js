@@ -9,32 +9,35 @@ var hafizkalYonetmelik = null;
 var hafizolYonetmelik = null;
 var availableCourse = null;
 
-document.addEventListener('DOMContentLoaded', () => {
-  "use strict";
-
-  $.get(baseUrl + 'courses/available', function(data) {
-    availableCourse = data.find(function(course) { return course.type === 'whatshafiz'; })
-
-    $.get(baseUrl + 'regulations/hafizol', function( data ) {
+function fetchRegulations() {
+    $.get(baseUrl + 'regulations/1', function( data ) {
       hafizolYonetmelik = data;
       $('#hafizol-yonetmeligi-text').html(hafizolYonetmelik.text);
       $('#hafizol-yonetmeligi-summary').html(hafizolYonetmelik.summary);
     });
-    $.get(baseUrl + 'regulations/hafizkal', function( data ) {
+    $.get(baseUrl + 'regulations/2', function( data ) {
       hafizkalYonetmelik = data;
       $('#hafizkal-yonetmeligi-text').html(hafizkalYonetmelik.text);
       $('#hafizkal-yonetmeligi-summary').html(hafizkalYonetmelik.summary);
     });
+}
 
-    if (availableCourse) {
-      $('.whatshafiz_can_be_applied_until').html(availableCourse.can_be_applied_until);
-      $('.whatshafiz_start_at').html(availableCourse.start_at);
-    } else {
-      $('#whatshafiz-register-buttons-holder').hide();
-      $('#whatshafiz-register-off').show();
-    }
-  });
+function fetchAvailableCourses() {
+    $.get(baseUrl + 'courses/available', function(data) {
+      availableCourse = data.find(function(course) { return course.type === 'whatshafiz'; })
 
+      if (availableCourse) {
+        $('.whatshafiz_can_be_applied_until').html(availableCourse.can_be_applied_until);
+        $('.whatshafiz_start_at').html(availableCourse.start_at);
+      } else {
+        $('#whatshafiz-register-buttons-holder').hide();
+        $('#whatshafiz-register-off').show();
+      }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  "use strict";
   /**
    * Preloader
    */
