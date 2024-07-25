@@ -24,7 +24,9 @@ function fetchRegulations() {
 
 function fetchAvailableCourses() {
     $.get(baseUrl + 'courses/available', function(data) {
-      availableCourse = data.find(function(course) { return course.type === 'whatshafiz'; })
+      availableCourse = data.find(function(course) {
+        return course.can_be_applied === true && course.course_type_id === 1;
+      })
 
       if (availableCourse) {
         $('.whatshafiz_can_be_applied_until').html(availableCourse.can_be_applied_until);
